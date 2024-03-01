@@ -1,11 +1,11 @@
 package com.example.demo.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,7 +37,7 @@ public class Product implements Serializable{
 	private Set<Category> categories = new HashSet<>();
 	
 	@OneToMany(mappedBy = "product")
-	private List <OrderItem> orderItem = new ArrayList<>();
+	private Set <OrderItem> orderItem = new HashSet<>();
 	
 	
 	public Product() {
@@ -114,7 +114,14 @@ public class Product implements Serializable{
 		return Objects.equals(id, other.id);
 	}
 	
-	
+	@JsonIgnore
+	public Set<Order> getOrders(){
+		Set<Order> s = new HashSet<>();
+		for(OrderItem item: orderItem) {
+			s.add(item.getOrder());
+		}
+		return s;
+	}
 	
 	
 	
