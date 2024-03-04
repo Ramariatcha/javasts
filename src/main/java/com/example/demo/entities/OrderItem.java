@@ -43,6 +43,10 @@ public class OrderItem {
 		setOrder(o);
 		setProduct(p);
 	}
+	
+	public Double getSubTotal() {
+		return quantity * price;
+	}
 
 	public int getQuantity() {
 		return quantity;
