@@ -27,4 +27,18 @@ public class UserService {
 	public User insert(User u) {
 		return repository.save(u);
 	}
+	
+	public void delete(Long id) {
+		//Optional<User> obj = repository.findById(id);
+		repository.deleteById(id);
+	}
+	
+	public User update(Long id, User u) {
+		User entity = repository.getReferenceById(id);
+		entity.setEmail(u.getEmail());
+		entity.setName(u.getName());
+		entity.setPhone(u.getPhone());
+		return repository.save(entity);
+		
+	}
 }
